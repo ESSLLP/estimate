@@ -7,5 +7,14 @@
   "name": "Opportunity-Client", 
   "script": "frappe.ui.form.on('Opportunity', {\n\trefresh: function(frm) {\n\t\tif(!frm.doc.__islocal){\n\t\t\tfrm.add_custom_button(__(\"Project Estimate\"), function(){\n\t\t\t\tmake_project_estimate(frm.doc);\n\t\t\t}, __(\"Make\"));\n\t\t}\n\t}\n});\n\nvar make_project_estimate=function(doc){\n\tfrappe.call({\n\t\t\t\t\tmethod: \"estimation.estimation.utils.make_project_estimate\",\n\t\t\t\t\targs:{\n\t\t\t\t\t\topportunity: doc.name\n\t\t\t\t\t},\n\t\t\t\t\tcallback: function(r) {\n\t\t\t\t\t\tif(!r.exc) {\n\t\t\t\t\t\t\tvar project_estimate = frappe.model.sync(r.message);\n\t\t\t\t\t\t\tfrappe.set_route(\"Form\", project_estimate[0].doctype, project_estimate[0].name);\n\t\t\t\t\t\t}\n\t\t\t\t\t\telse{\n\t\t\t\t\t\t\tfrappe.show_alert({\n\t\t\t\t\t\t\t\tmessage:__('No data'),\n\t\t\t\t\t\t\t\tindicator:'orange'\n\t\t\t\t\t\t\t});\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t});\n}\n", 
   "script_type": "Client"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Custom Script", 
+  "dt": "Project", 
+  "modified": "2018-08-29 15:30:53.882779", 
+  "name": "Project-Client", 
+  "script": "\nfrappe.ui.form.on('Project', {\n\trefresh: function(frm) {\n\t\tif (frm.doc.total_estimated_cost){\n\t\t\tfrm.set_value(\"estimated_costing\", frm.doc.total_estimated_cost)\n\t\t\trefresh_field(\"estimated_costing\");\n\t\t}\n\t\tif (frm.doc.total_costing_amount){\n\t\t\tfrm.set_value(\"actual_activity_costs\", frm.doc.total_costing_amount)\n\t\t\trefresh_field(\"actual_activity_costs\");\n\t\t}\n\t\tif (frm.doc.total_purchase_cost){\n\t\t\tfrm.set_value(\"actual_purchases_\", frm.doc.total_purchase_cost)\n\t\t\trefresh_field(\"actual_purchases_\");\n\t\t}\n\t\tif (frm.doc.total_expense_claim){\n\t\t\tfrm.set_value(\"actual_expenses\", frm.doc.total_expense_claim)\n\t\t\trefresh_field(\"actual_expenses\");\n\t\t}\n\n\t\tfrm.set_value(\"actual_total_cost\", frm.doc.total_costing_amount + frm.doc.total_purchase_cost + frm.doc.total_expense_claim)\n\t\trefresh_field(\"actual_total_cost\");\n\t}\n});\n", 
+  "script_type": "Client"
  }
 ]
