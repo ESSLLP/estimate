@@ -3,8 +3,17 @@
   "docstatus": 0, 
   "doctype": "Translation", 
   "language": "en", 
-  "modified": "2018-08-29 13:47:46.933860", 
-  "name": "80df1825da", 
+  "modified": "2018-08-29 16:40:35.775251", 
+  "name": "e5e6b50191", 
+  "source_name": "eSS Project Estimate", 
+  "target_name": "Project Estimate"
+ }, 
+ {
+  "docstatus": 0, 
+  "doctype": "Translation", 
+  "language": "en", 
+  "modified": "2018-08-29 16:49:53.167575", 
+  "name": "b50a0c70a4", 
   "source_name": "eSS Project Estimate", 
   "target_name": "Project Estimate"
  }
