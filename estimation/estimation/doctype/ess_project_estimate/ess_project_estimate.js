@@ -13,6 +13,24 @@ frappe.ui.form.on('eSS Project Estimate', {
 	}
 });
 
+frappe.ui.form.on('eSS Project Estimate Item', {
+	item_code: function(frm, cdt, cdn) {
+		var child = locals[cdt][cdn];
+		frappe.call({
+			method: "frappe.client.get_value",
+			args: { doctype: "Item Price",
+							filters: {"price_list": frm.doc.buying_price_list,
+												"item_code": child.item_code
+												},
+							fieldname: "price_list_rate"
+						},
+			callback: function(r){
+				console.log(r.message);
+			}
+		});
+	}
+});
+
 /*
 frappe.ui.form.on("eSS Activity Estimate", {
   hours: function(frm, cdt, cdn) {
